@@ -1,0 +1,60 @@
+Process:-state of program when executing loaded in memory.(it is an active entitiy)
+i.e,  os manages h/w on b ehalf of application .
+applications are stored in hard disak or flash memory which is in static state. When these are executed they are in active state which is called a process.
+States of a process:
+1.text and data:-static state when the address first loads
+2.heap:-dynamically created during execution
+3.stack:-grows and shrinks in lifo queue
+Process address representation-Vo  to Vmax-Virtual address(contains process states)
+	->These addresses are called virtual because they don't have to correspond to the actual locations in the physical memory.Instead memory management hardware and os components responsible for memory management,like page tables maintain the mapping between virtual addresses an the physical addresses.
+*Sometimes there may not be sufficient space in physical memory such processes are stored in disk tempoarily and are accesses when required.
+~* How does the os know what a process is doing?-thro' prgrm counter which tells the cpu where the proccess is currently. PC is maintained in cpu in a register and also other registers are maintained in cpu which hold values necessary info for process. Another one is process stach which is defined by stack pointer(i.e, sp tell what the last one inserted in the stack so that we can acces that).
+~*Process control block(pcpb)*~
+->It is a ds that the os maintain for everyone of the processes that it manages.PCB contains:
+-process state
+-process number
+-program counter
+-registers
+-memory limits
+-list of open files
+-prioriy
+-single mask
+-cpu scheduling info
+->PCB is created when the process is created
+~*context switching-switching the cpu from the context of one process to the context of another--- they are expensive
+cache hit-cache is hot
+cache miss-cache is cold
+for process p1 its contents are stored in processor cache but when the context switch happens and data of p1 in cache is replaces with contents of p2 and the next time when we access the contents of it will not be found in cache it will require much more time to read data from memory.Hence cahce miss occurs.
+~*Process lifecycle(new,ready,waiting,running,terminated)
+->Ready to running-scheduler dispatch
+->running to ready-interrupt
+->waiting to ready-I/O or event completion
+-> running to waiting -I/O or event wait
+->new to ready -admitted
+->running to terminated-exit
+~* Process ccreation
+creting child of parent proccesses:
+->fork-copies the parent PCB into new child PCb
+	-child continues execution at instruction after fork
+->exec- creates a PCB similar to parent but will replace child image
+	-load new program and strat from first instruction
+~*What is the role of cpu scheduler?
+->There will be many processes ready to be dispatched in ready queue.A cpu sheduler determines which one of the currently ready processes will be dispatched to the cpu to start running, and how long it should run for.
+->os must:
+ 1.preempt=interrupt and save current text
+ 2.schedule=run scheduler to choose next process
+ 3.dispatch=dispatch process and switch into its context.
+~*length of process:-more frequently run more time is wasted
+~*Can processes interact?-Yes 
+->Inter process communication (IPC mechanisms)
+	-transfer data between address spaces
+	-maintain protection and isolation
+	-provide flexibility and performance
+->Message passing IPC:
+	-os provides communication channel ,like shares buffer
+	-processes write(send)/read(recieve) messages to/from channel
+->Shared memory IPC
+	-os establishes a shared channel and maps it into each process address space
+	-processes directly read/write from this memory
+	-os is out of the way
+
